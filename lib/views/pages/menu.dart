@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gestor_empreendimento/gen/fonts.gen.dart';
-import 'package:gestor_empreendimento/gen/assets.gen.dart';
 import 'package:gestor_empreendimento/models/mercadoria.dart';
-import 'package:gestor_empreendimento/pages/mercadorias.dart';
+import 'package:gestor_empreendimento/config/constants.dart';
+import 'package:go_router/go_router.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -16,13 +15,13 @@ class Menu extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16.0),
           child: CircleAvatar(
             radius: 18,
-            backgroundColor: Color(0xFFFFB845),
+            backgroundColor: UserColor.colorLogo,
             child: Text(
               '\$',
               style: TextStyle(
-                color: Color(0xFF825228),
+                color: UserColor.secondary,
                 fontSize: 24,
-                fontFamily: FontFamily.annieUseYourTelescope,
+                fontFamily: Font.annieUseYourTelescope,
               ),
             ),
           ),
@@ -32,10 +31,10 @@ class Menu extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
               radius: 18,
-              backgroundColor: Color(0xFFFFB845),
+              backgroundColor: UserColor.colorLogo,
               child: Icon(
                 Icons.person_2_sharp,
-                color: Color(0xFF825228),
+                color: UserColor.secondary,
                 size: 30,
               ),
             ),
@@ -50,17 +49,14 @@ class Menu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                  onTap: () {
-                    // Handle back button press
-                    Navigator.pop(context);
-                  },
+                  onTap: () => GoRouter.of(context).pop(),
                   borderRadius: BorderRadius.circular(25),
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundColor: Color(0xFF825228),
+                    backgroundColor: UserColor.secondary,
                     child: Icon(
                       Icons.arrow_back,
-                      color: Color(0xFFFFEFD5),
+                      color: UserColor.background,
                       size: 30,
                     ),
                   ),
@@ -72,10 +68,10 @@ class Menu extends StatelessWidget {
                   borderRadius: BorderRadius.circular(25),
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundColor: Color(0xFF825228),
+                    backgroundColor: UserColor.secondary,
                     child: Icon(
                       Icons.more_vert_rounded,
-                      color: Color(0xFFFFEFD5),
+                      color: UserColor.background,
                       size: 30,
                     ),
                   ),
@@ -86,15 +82,13 @@ class Menu extends StatelessWidget {
             SizedBox(
               width: 250,
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle button press
-                },
+                onPressed: () => GoRouter.of(context).push('/receitas'),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image(
-                      image: AssetImage(Assets.images.recipeBook.keyName),
+                      image: AssetImage(Img.recipeBook),
                       width: 24,
                       height: 24,
                     ),
@@ -108,22 +102,12 @@ class Menu extends StatelessWidget {
             SizedBox(
               width: 250,
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle button press
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Mercadorias()),
-                  );
-                },
+                onPressed: () => GoRouter.of(context).push('/mercadorias'),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image(
-                      image: AssetImage(Assets.images.bread.keyName),
-                      width: 24,
-                      height: 24,
-                    ),
+                    Image(image: AssetImage(Img.bread), width: 24, height: 24),
                     const SizedBox(width: 8),
                     const Text('Mercadorias'),
                   ],
@@ -141,11 +125,7 @@ class Menu extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image(
-                      image: AssetImage(Assets.images.wheat.keyName),
-                      width: 24,
-                      height: 24,
-                    ),
+                    Image(image: AssetImage(Img.wheat), width: 24, height: 24),
                     const SizedBox(width: 8),
                     const Text('Insumos'),
                   ],
