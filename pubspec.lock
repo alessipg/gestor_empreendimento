@@ -81,7 +81,7 @@ packages:
     source: sdk
     version: "0.0.0"
   go_router:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: go_router
       sha256: eb059dfe59f08546e9787f895bd01652076f996bcbf485a8609ef990419ad227
@@ -169,7 +169,7 @@ packages:
     source: hosted
     version: "1.9.1"
   provider:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: provider
       sha256: "4e82183fa20e5ca25703ead7e05de9e4cceed1fbd1eadc1ac3cb6f565a09f272"

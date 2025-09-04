@@ -118,9 +118,7 @@ class Menu extends StatelessWidget {
             SizedBox(
               width: 250,
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle button press
-                },
+                onPressed: () => GoRouter.of(context).push('/insumos'),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,5 @@
 import 'package:gestor_empreendimento/models/produto.dart';
 
 class Mercadoria extends Produto {
-  Mercadoria({required super.id, required super.nome, required super.custo});
+  Mercadoria({required super.id, required super.nome, required super.custo, required super.quantidade});
 }

@@ -6,6 +6,7 @@ class ProdutosRepository extends ChangeNotifier {
 
   List<Produto> get produtos => _produtos;
 
+  
   void addProduto(Produto produto) {
     _produtos.add(produto);
   }
