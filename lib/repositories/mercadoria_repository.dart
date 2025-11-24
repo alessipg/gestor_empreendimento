@@ -30,9 +30,6 @@ class MercadoriaRepository extends ChangeNotifier {
     _mercadorias = List.generate(maps.length, (i) {
       return Mercadoria.fromMap(maps[i]);
     });
-    print(
-      '📦 Carregadas ${_mercadorias.length} mercadorias do banco: ${_mercadorias.map((m) => m.nome).join(", ")}',
-    );
     notifyListeners();
   }
 
@@ -40,7 +37,6 @@ class MercadoriaRepository extends ChangeNotifier {
     final id = await db.insert('mercadoria', mercadoria.toMap());
     mercadoria.id = id;
     _mercadorias.add(mercadoria);
-    print('✅ Mercadoria adicionada ao banco: ${mercadoria.nome} (ID: $id)');
     notifyListeners();
   }
 

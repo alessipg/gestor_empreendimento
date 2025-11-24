@@ -30,9 +30,6 @@ class InsumoRepository extends ChangeNotifier {
     _insumos = List.generate(maps.length, (i) {
       return Insumo.fromMap(maps[i]);
     });
-    print(
-      '📦 Carregados ${_insumos.length} insumos do banco: ${_insumos.map((i) => i.nome).join(", ")}',
-    );
     notifyListeners();
   }
 
@@ -40,7 +37,6 @@ class InsumoRepository extends ChangeNotifier {
     final id = await db.insert('insumo', insumo.toMap());
     insumo.id = id;
     _insumos.add(insumo);
-    print('✅ Insumo adicionado ao banco: ${insumo.nome} (ID: $id)');
     notifyListeners();
   }
 

@@ -183,7 +183,6 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           onPressed: () {
                             widget.onItemConfirmed(mercadoria, quantity);
                             Navigator.of(modalContext).pop();
-                            Navigator.of(context).pop();
                           },
                           child: const Text("Adicionar"),
                         ),
