@@ -3,6 +3,7 @@ import 'package:receitacerta/models/mercadoria.dart';
 import 'package:receitacerta/models/receita.dart';
 import 'package:receitacerta/views/pages/mercadorias/mercadoria_criar.dart';
 import 'package:receitacerta/views/pages/mercadorias/mercadoria_editar.dart';
+import 'package:receitacerta/views/pages/pdv/carrinho.dart';
 import 'package:receitacerta/views/pages/receitas/receita_editar.dart';
 import 'package:receitacerta/views/widgets/custom_scaffold.dart';
 import 'package:go_router/go_router.dart';
@@ -18,13 +19,14 @@ import 'package:receitacerta/views/pages/receitas/receita_criar.dart';
 
 final routes = GoRouter(
   initialLocation: '/',
-  redirect: (context, state) {
+  //TODO: remover comentário para reativar autenticação
+  /*redirect: (context, state) {
     final user = FirebaseAuth.instance.currentUser;
     final loggingIn = state.fullPath == '/';
     if (user == null && !loggingIn) return '/';
     if (user != null && loggingIn) return '/menu';
     return null;
-  },
+  },*/
   routes: [
     GoRoute(path: '/', builder: (context, state) => const Home()),
     GoRoute(
@@ -70,6 +72,12 @@ final routes = GoRouter(
       path: '/mercadorias/edit',
       builder: (context, state) => CustomScaffold(
         child: MercadoriaEditar(mercadoria: state.extra as Mercadoria),
+      ),
+    ),
+    GoRoute(
+      path: '/carrinho',
+      builder: (context, state) => CustomScaffold(
+        child: Carrinho(),
       ),
     ),
   ],
