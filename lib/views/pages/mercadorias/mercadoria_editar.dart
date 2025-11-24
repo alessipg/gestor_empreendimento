@@ -85,15 +85,26 @@ class _MercadoriaEditarState extends State<MercadoriaEditar> {
         padding: const EdgeInsets.all(8.0),
         children: [
           // Título
-          Center(
-            child: Text(
-              'Mercadoria: ${mercadoria.nome}',
-              style: TextStyle(
-                fontSize: 24,
-                color: UserColor.primary,
-                fontWeight: FontWeight.bold,
+          Column(
+            children: [
+              Center(
+                child: Text(
+                  'Mercadoria: ${mercadoria.nome}',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: UserColor.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
+              Text(
+                'Código de barras: ${mercadoria.id}',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: UserColor.secondary,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
 
