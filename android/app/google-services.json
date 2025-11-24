@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1094601762496",
+    "project_id": "receitapronta-abec4",
+    "storage_bucket": "receitapronta-abec4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094601762496:android:974c41a130fb972b186f25",
+        "android_client_info": {
+          "package_name": "com.example.gestor_empreendimento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094601762496-2gpmu0644j98ejedq9cg2f79dsvsrtmq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gestor_empreendimento",
+            "certificate_hash": "6f2550314bed251da1c21618bb1096802bb08e6b"
+          }
+        },
+        {
+          "client_id": "1094601762496-0041ke9t1ua7ed0lh1eugnga555qmqru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsfX29D-jnoETb8C7krnRSXJQmZWo5eP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094601762496-0041ke9t1ua7ed0lh1eugnga555qmqru.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1094601762496-deudc6vslm18buvbg48e0tjv60r0f0hq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rtp.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

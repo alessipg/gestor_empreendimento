@@ -1,4 +1,4 @@
-name: gestor_empreendimento
+name: receitacerta
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -32,16 +32,46 @@ dependencies:
     sdk: flutter
   go_router: 
   provider:
-  diacritic: ^0.1.3 
-
+  diacritic:  
+  sqflite: 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+  cupertino_icons: 
+  intl: ^0.20.2
+  flutter_launcher_icons: ^0.14.4
+  path: ^1.9.1
+  firebase_core: ^4.2.0
+  firebase_auth: ^6.1.1
+  google_sign_in: ^7.2.0
+  cloud_firestore: ^6.0.3
+  flutter_dotenv: ^5.2.1
+  mobile_scanner: ^7.1.3
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: 
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  icon_size: 36
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/images/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -54,6 +84,15 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - .env
+    - assets/images/google_logo.png
+    - assets/images/recipe_book.png
+    - assets/images/bread.png
+    - assets/images/wheat.png
+    - assets/images/edit.png
+    - assets/images/remove.png
+
   fonts:
     - family: Annie Use Your Telescope
       fonts:
@@ -61,14 +100,6 @@ flutter:
     - family: Aleo
       fonts:
         - asset: assets/fonts/Aleo-Regular.ttf
-
-  assets:
-    - assets/images/google_logo.png
-    - assets/images/recipe_book.png
-    - assets/images/bread.png
-    - assets/images/wheat.png
-    - assets/images/edit.png
-    - assets/images/remove.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

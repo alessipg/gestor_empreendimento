@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:gestor_empreendimento/config/medida.dart';
+import 'package:receitacerta/config/medida.dart';
 
 class Produto extends ChangeNotifier {
   int? id;

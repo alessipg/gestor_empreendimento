@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gestor_empreendimento/config/medida.dart';
-import 'package:gestor_empreendimento/models/insumo.dart';
-import 'package:gestor_empreendimento/controllers/insumo_controller.dart';
-import 'package:gestor_empreendimento/repositories/insumo_repository.dart';
+import 'package:receitacerta/config/medida.dart';
+import 'package:receitacerta/models/insumo.dart';
+import 'package:receitacerta/controllers/insumo_controller.dart';
+import 'package:receitacerta/repositories/insumo_repository.dart';
 
 void main() {
   test('Inserção correta no estoque', () {

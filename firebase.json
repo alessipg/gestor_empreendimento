@@ -1,0 +1,22 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "receitapronta-abec4",
+                    "appId": "1:1094601762496:android:974c41a130fb972b186f25",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "receitapronta-abec4",
+                    "configurations": {
+                        "android": "1:1094601762496:android:974c41a130fb972b186f25",
+                        "web": "1:1094601762496:web:c62d55f7b320da6a186f25"
+                    }
+                }
+            }
+        }
+    }
+}
