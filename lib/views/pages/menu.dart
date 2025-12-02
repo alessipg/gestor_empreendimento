@@ -73,6 +73,25 @@ class Menu extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 32),
+            SizedBox(
+              width: 250,
+              child: ElevatedButton(
+                onPressed: () => GoRouter.of(context).push('/fornecedores'),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.local_shipping,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Fornecedores'),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
