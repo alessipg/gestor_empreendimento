@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:receitacerta/config/constants.dart';
+import 'package:receitacerta/controllers/cart_controller.dart';
 import 'package:receitacerta/controllers/insumo_controller.dart';
 import 'package:receitacerta/repositories/insumo_repository.dart';
 import 'package:receitacerta/controllers/receita_controller.dart';
 import 'package:receitacerta/repositories/receita_repository.dart';
+import 'package:receitacerta/controllers/fornecedor_controller.dart';
+import 'package:receitacerta/repositories/fornecedor_repository.dart';
 import 'package:provider/provider.dart';
 import 'config/routes.dart';
 import 'controllers/mercadoria_controller.dart';
@@ -16,10 +19,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Load environment variables
   await dotenv.load(fileName: ".env");
-  
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
@@ -30,18 +33,24 @@ void main() async {
   final insumoRepository = InsumoRepository();
   final mercadoriaRepository = MercadoriaRepository();
   final receitaRepository = ReceitaRepository();
+  final fornecedorRepository = FornecedorRepository();
 
   await Future.wait([
     insumoRepository.waitForInitialization(),
     mercadoriaRepository.waitForInitialization(),
     receitaRepository.waitForInitialization(),
+    fornecedorRepository.waitForInitialization(),
   ]);
 
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => CartController()),
         ChangeNotifierProvider(
           create: (context) => InsumoController(insumoRepository),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FornecedorController(fornecedorRepository),
         ),
         ChangeNotifierProvider(
           create: (context) => MercadoriaController(mercadoriaRepository),

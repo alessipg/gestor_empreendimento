@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:receitacerta/config/constants.dart';
 import 'package:receitacerta/security/GoogleSignInService.dart';
-import 'package:receitacerta/views/widgets/PopupMenuButton.dart';
 
 class AppBarUser extends StatelessWidget implements PreferredSizeWidget {
   const AppBarUser({super.key});

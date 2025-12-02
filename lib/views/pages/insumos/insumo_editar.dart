@@ -225,6 +225,31 @@ class _InsumoEditarState extends State<InsumoEditar> {
             ),
             const SizedBox(height: 32),
 
+            // Botão Gerenciar Fornecedores
+            Center(
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  GoRouter.of(context).push(
+                    '/insumos/${widget.insumo.id}/fornecedores',
+                    extra: widget.insumo,
+                  );
+                },
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: UserColor.primary),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                ),
+                icon: const Icon(Icons.local_shipping),
+                label: const Text(
+                  'Gerenciar Fornecedores',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+
             // Botão Salvar
             Center(
               child: ElevatedButton(
