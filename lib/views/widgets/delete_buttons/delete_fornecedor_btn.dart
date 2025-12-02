@@ -7,10 +7,7 @@ import 'package:provider/provider.dart';
 class DeleteFornecedorBtn extends StatelessWidget {
   final Fornecedor fornecedor;
 
-  const DeleteFornecedorBtn({
-    super.key,
-    required this.fornecedor,
-  });
+  const DeleteFornecedorBtn({super.key, required this.fornecedor});
 
   void _deleteFornecedor(BuildContext context) {
     if (fornecedor.id == null) {
@@ -44,9 +41,7 @@ class DeleteFornecedorBtn extends StatelessWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text("Excluir Fornecedor"),
-        content: Text(
-          "Tem certeza que deseja excluir ${fornecedor.nome}?",
-        ),
+        content: Text("Tem certeza que deseja excluir ${fornecedor.nome}?"),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
@@ -68,11 +63,7 @@ class DeleteFornecedorBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => _confirmDelete(context),
-      icon: const Image(
-        image: AssetImage(Img.remove),
-        width: 24,
-        height: 24,
-      ),
+      icon: const Image(image: AssetImage(Img.remove), width: 24, height: 24),
     );
   }
 }

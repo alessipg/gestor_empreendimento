@@ -44,7 +44,7 @@ final routes = GoRouter(
       builder: (context, state) => const CustomScaffold(child: Receitas()),
     ),
     GoRoute(
-      path: '/mercadorias', 
+      path: '/mercadorias',
       builder: (context, state) => const CustomScaffold(child: Mercadorias()),
     ),
     GoRoute(
@@ -94,7 +94,8 @@ final routes = GoRouter(
     ),
     GoRoute(
       path: '/fornecedores/add',
-      builder: (context, state) => const CustomScaffold(child: FornecedorCriar()),
+      builder: (context, state) =>
+          const CustomScaffold(child: FornecedorCriar()),
     ),
     GoRoute(
       path: '/fornecedores/edit',

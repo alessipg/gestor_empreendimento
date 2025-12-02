@@ -24,10 +24,10 @@ class FornecedorInsumo {
   }
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'fornecedor_id': fornecedorId,
-        'insumo_id': insumoId,
-        'preco': preco,
-        'data_cadastro': dataCadastro.toIso8601String(),
-      };
+    'id': id,
+    'fornecedor_id': fornecedorId,
+    'insumo_id': insumoId,
+    'preco': preco,
+    'data_cadastro': dataCadastro.toIso8601String(),
+  };
 }

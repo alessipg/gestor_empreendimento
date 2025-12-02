@@ -13,16 +13,15 @@ class DB {
     return await _initDatabase();
   }
 
-_initDatabase() async {
-  final path = join(await getDatabasesPath(), 'receitacerta.db');
-  return await openDatabase(
-    path,
-    version: 3,
-    onCreate: _onCreate,
-    onUpgrade: _onUpgrade,
-  );
-}
-
+  _initDatabase() async {
+    final path = join(await getDatabasesPath(), 'receitacerta.db');
+    return await openDatabase(
+      path,
+      version: 3,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
+    );
+  }
 
   _onCreate(db, version) async {
     await db.execute(_insumo);
@@ -51,13 +50,17 @@ _initDatabase() async {
         FOREIGN KEY (fornecedor_id) REFERENCES fornecedor (id),
         FOREIGN KEY (insumo_id) REFERENCES insumo (id)
       )''');
-      
+
       // Copia dados existentes adicionando data atual
-      await db.execute('''INSERT INTO fornecedor_insumo_temp (id, fornecedor_id, insumo_id, preco, data_cadastro)
-        SELECT id, fornecedor_id, insumo_id, preco, datetime('now', 'localtime') FROM fornecedor_insumo''');
-      
+      await db.execute(
+        '''INSERT INTO fornecedor_insumo_temp (id, fornecedor_id, insumo_id, preco, data_cadastro)
+        SELECT id, fornecedor_id, insumo_id, preco, datetime('now', 'localtime') FROM fornecedor_insumo''',
+      );
+
       await db.execute('DROP TABLE fornecedor_insumo');
-      await db.execute('ALTER TABLE fornecedor_insumo_temp RENAME TO fornecedor_insumo');
+      await db.execute(
+        'ALTER TABLE fornecedor_insumo_temp RENAME TO fornecedor_insumo',
+      );
     }
   }
 

@@ -39,17 +39,17 @@ class Fornecedor {
   }
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'nome': nome,
-        'cnpj': cnpj,
-        'telefone': telefone,
-        'email': email,
-        'cep': cep,
-        'endereco': endereco,
-        'bairro': bairro,
-        'cidade': cidade,
-        'estado': estado,
-      };
+    'id': id,
+    'nome': nome,
+    'cnpj': cnpj,
+    'telefone': telefone,
+    'email': email,
+    'cep': cep,
+    'endereco': endereco,
+    'bairro': bairro,
+    'cidade': cidade,
+    'estado': estado,
+  };
 
   Map<String, dynamic> toJson() => toMap();
 }

@@ -46,9 +46,9 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
   Future<void> _buscarCep() async {
     final cep = cepController.text;
     if (cep.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Digite um CEP')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Digite um CEP')));
       return;
     }
 
@@ -69,22 +69,22 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
         cidadeController.text = resultado['localidade'] ?? '';
         estadoController.text = resultado['uf'] ?? '';
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CEP encontrado!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('CEP encontrado!')));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CEP não encontrado')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('CEP não encontrado')));
     }
   }
 
   Future<void> _buscarCnpj() async {
     final cnpj = cnpjController.text;
     if (cnpj.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Digite um CNPJ')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Digite um CNPJ')));
       return;
     }
 
@@ -104,17 +104,21 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
         telefoneController.text = resultado['telefone'] ?? '';
         emailController.text = resultado['email'] ?? '';
         cepController.text = resultado['cep'] ?? '';
-        enderecoController.text = '${resultado['logradouro'] ?? ''} ${resultado['numero'] ?? ''}'.trim();
+        enderecoController.text =
+            '${resultado['logradouro'] ?? ''} ${resultado['numero'] ?? ''}'
+                .trim();
         bairroController.text = resultado['bairro'] ?? '';
         cidadeController.text = resultado['municipio'] ?? '';
         estadoController.text = resultado['uf'] ?? '';
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CNPJ encontrado!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('CNPJ encontrado!')));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CNPJ não encontrado ou serviço indisponível')),
+        const SnackBar(
+          content: Text('CNPJ não encontrado ou serviço indisponível'),
+        ),
       );
     }
   }
@@ -123,25 +127,22 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       context.read<FornecedorController>().criar(
-            Fornecedor(
-              nome: nomeController.text,
-              cnpj: cnpjController.text.isEmpty ? null : cnpjController.text,
-              telefone: telefoneController.text.isEmpty
-                  ? null
-                  : telefoneController.text,
-              email: emailController.text.isEmpty ? null : emailController.text,
-              cep: cepController.text.isEmpty ? null : cepController.text,
-              endereco: enderecoController.text.isEmpty
-                  ? null
-                  : enderecoController.text,
-              bairro:
-                  bairroController.text.isEmpty ? null : bairroController.text,
-              cidade:
-                  cidadeController.text.isEmpty ? null : cidadeController.text,
-              estado:
-                  estadoController.text.isEmpty ? null : estadoController.text,
-            ),
-          );
+        Fornecedor(
+          nome: nomeController.text,
+          cnpj: cnpjController.text.isEmpty ? null : cnpjController.text,
+          telefone: telefoneController.text.isEmpty
+              ? null
+              : telefoneController.text,
+          email: emailController.text.isEmpty ? null : emailController.text,
+          cep: cepController.text.isEmpty ? null : cepController.text,
+          endereco: enderecoController.text.isEmpty
+              ? null
+              : enderecoController.text,
+          bairro: bairroController.text.isEmpty ? null : bairroController.text,
+          cidade: cidadeController.text.isEmpty ? null : cidadeController.text,
+          estado: estadoController.text.isEmpty ? null : estadoController.text,
+        ),
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Fornecedor criado com sucesso!')),
       );
@@ -252,9 +253,7 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
               ),
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
-                if (value != null &&
-                    value.isNotEmpty &&
-                    !value.contains('@')) {
+                if (value != null && value.isNotEmpty && !value.contains('@')) {
                   return 'Email inválido';
                 }
                 return null;
@@ -271,7 +270,7 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
                     decoration: const InputDecoration(
                       labelText: 'CEP',
                       hintText: '00000-000',
-                      
+
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,

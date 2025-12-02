@@ -84,10 +84,7 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
                 items: fornecedoresDisponiveis.map((f) {
                   return DropdownMenuItem(
                     value: f.id,
-                    child: Text(
-                      f.nome,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    child: Text(f.nome, overflow: TextOverflow.ellipsis),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -134,14 +131,17 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
                         );
                       }
                     },
-                    
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: UserColor.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                    child: const Text('Adicionar', style: TextStyle(color: Colors.white)),
+                    child: const Text(
+                      'Adicionar',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),
@@ -182,7 +182,10 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar', style: TextStyle(color: Colors.black, fontSize: 18)),
+            child: const Text(
+              'Cancelar',
+              style: TextStyle(color: Colors.black, fontSize: 18),
+            ),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -191,9 +194,9 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
                   precoController.text,
                 );
                 await context.read<FornecedorController>().updateInsumoPrice(
-                      fornecedor['preco_id'],
-                      preco,
-                    );
+                  fornecedor['preco_id'],
+                  preco,
+                );
                 Navigator.pop(context);
                 _loadFornecedores();
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -201,9 +204,7 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
                 );
               }
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: UserColor.primary,
-            ),
+            style: ElevatedButton.styleFrom(backgroundColor: UserColor.primary),
             child: const Text('Salvar', style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -216,9 +217,7 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Remover Fornecedor'),
-        content: Text(
-          'Deseja remover ${fornecedor['nome']} desta lista?',
-        ),
+        content: Text('Deseja remover ${fornecedor['nome']} desta lista?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -227,8 +226,8 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
           TextButton(
             onPressed: () async {
               await context.read<FornecedorController>().removeInsumoPrice(
-                    fornecedor['preco_id'],
-                  );
+                fornecedor['preco_id'],
+              );
               Navigator.pop(context);
               _loadFornecedores();
               ScaffoldMessenger.of(context).showSnackBar(
@@ -248,92 +247,97 @@ class _InsumoFornecedoresState extends State<InsumoFornecedores> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _fornecedoresComPreco.isEmpty
-              ? const Center(
-                  child: Text(
-                    'Nenhum fornecedor cadastrado para este insumo',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: UserColor.secondary,
-                    ),
-                  ),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: _fornecedoresComPreco.length,
-                  itemBuilder: (context, index) {
-                    final fornecedor = _fornecedoresComPreco[index];
-                    final dataCadastro = DateTime.parse(fornecedor['data_cadastro']);
-                    final dataFormatada = DateFormat('dd/MM/yyyy HH:mm').format(dataCadastro);
-                    
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 8),
-                      child: ListTile(
-                        title: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                fornecedor['nome'],
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            if (fornecedor['cidade'] != null)
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  fornecedor['cidade'],
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                          ],
+          ? const Center(
+              child: Text(
+                'Nenhum fornecedor cadastrado para este insumo',
+                style: TextStyle(fontSize: 18, color: UserColor.secondary),
+              ),
+            )
+          : ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: _fornecedoresComPreco.length,
+              itemBuilder: (context, index) {
+                final fornecedor = _fornecedoresComPreco[index];
+                final dataCadastro = DateTime.parse(
+                  fornecedor['data_cadastro'],
+                );
+                final dataFormatada = DateFormat(
+                  'dd/MM/yyyy HH:mm',
+                ).format(dataCadastro);
+
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            fornecedor['nome'],
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'R\$ ${fornecedor['preco'].toStringAsFixed(2)}/${widget.insumo.medida.sigla}',
+                        if (fornecedor['cidade'] != null)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              fornecedor['cidade'],
                               style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Cadastrado em: $dataFormatada',
-                              style: const TextStyle(
-                                fontSize: 11,
+                                fontSize: 12,
                                 color: Colors.grey,
                               ),
                             ),
-                          ],
-                        ),
-                        trailing: SizedBox(
-                          width: 96,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.edit, size: 20),
-                                onPressed: () => _showEditPrecoModal(fornecedor),
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                                onPressed: () => _removeFornecedor(fornecedor),
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                              ),
-                            ],
+                          ),
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'R\$ ${fornecedor['preco'].toStringAsFixed(2)}/${widget.insumo.medida.sigla}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
                           ),
                         ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Cadastrado em: $dataFormatada',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    trailing: SizedBox(
+                      width: 96,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit, size: 20),
+                            onPressed: () => _showEditPrecoModal(fornecedor),
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                              size: 20,
+                            ),
+                            onPressed: () => _removeFornecedor(fornecedor),
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                );
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddFornecedorModal,
         backgroundColor: UserColor.primary,

@@ -82,10 +82,7 @@ class Menu extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.local_shipping,
-                      size: 24,
-                    ),
+                    const Icon(Icons.local_shipping, size: 24),
                     const SizedBox(width: 8),
                     const Text('Fornecedores'),
                   ],

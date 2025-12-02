@@ -52,13 +52,18 @@ class FornecedorController extends ChangeNotifier {
     final nomeNormalizado = removeDiacritics(nome.toLowerCase());
 
     return repository.fornecedores.where((fornecedor) {
-      final fornecedorNomeNormalizado =
-          removeDiacritics(fornecedor.nome.toLowerCase());
+      final fornecedorNomeNormalizado = removeDiacritics(
+        fornecedor.nome.toLowerCase(),
+      );
       return fornecedorNomeNormalizado.contains(nomeNormalizado);
     }).toList();
   }
 
-  Future<void> addInsumoPrice(int fornecedorId, int insumoId, double preco) async {
+  Future<void> addInsumoPrice(
+    int fornecedorId,
+    int insumoId,
+    double preco,
+  ) async {
     await repository.addInsumoPrice(fornecedorId, insumoId, preco);
     notifyListeners();
   }
@@ -74,12 +79,14 @@ class FornecedorController extends ChangeNotifier {
   }
 
   Future<List<Map<String, dynamic>>> getFornecedoresComPrecoByInsumo(
-      int insumoId) async {
+    int insumoId,
+  ) async {
     return await repository.getFornecedoresComPrecoByInsumo(insumoId);
   }
 
   Future<List<Map<String, dynamic>>> getInsumosByFornecedor(
-      int fornecedorId) async {
+    int fornecedorId,
+  ) async {
     return await repository.getInsumosByFornecedor(fornecedorId);
   }
 }

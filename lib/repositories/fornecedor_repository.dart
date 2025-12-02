@@ -66,16 +66,16 @@ class FornecedorRepository extends ChangeNotifier {
       whereArgs: [id],
     );
     // Remove fornecedor
-    await db.delete(
-      'fornecedor',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    await db.delete('fornecedor', where: 'id = ?', whereArgs: [id]);
     _fornecedores.removeWhere((f) => f.id == id);
     notifyListeners();
   }
 
-  Future<void> addInsumoPrice(int fornecedorId, int insumoId, double preco) async {
+  Future<void> addInsumoPrice(
+    int fornecedorId,
+    int insumoId,
+    double preco,
+  ) async {
     await db.insert('fornecedor_insumo', {
       'fornecedor_id': fornecedorId,
       'insumo_id': insumoId,
@@ -96,34 +96,38 @@ class FornecedorRepository extends ChangeNotifier {
   }
 
   Future<void> removeInsumoPrice(int precoId) async {
-    await db.delete(
-      'fornecedor_insumo',
-      where: 'id = ?',
-      whereArgs: [precoId],
-    );
+    await db.delete('fornecedor_insumo', where: 'id = ?', whereArgs: [precoId]);
     notifyListeners();
   }
 
   Future<List<Map<String, dynamic>>> getFornecedoresComPrecoByInsumo(
-      int insumoId) async {
-    final result = await db.rawQuery('''
+    int insumoId,
+  ) async {
+    final result = await db.rawQuery(
+      '''
       SELECT f.id, f.nome, f.cidade, fi.id as preco_id, fi.preco, fi.data_cadastro
       FROM fornecedor f
       INNER JOIN fornecedor_insumo fi ON f.id = fi.fornecedor_id
       WHERE fi.insumo_id = ?
       ORDER BY fi.data_cadastro DESC
-    ''', [insumoId]);
+    ''',
+      [insumoId],
+    );
     return result;
   }
 
   Future<List<Map<String, dynamic>>> getInsumosByFornecedor(
-      int fornecedorId) async {
-    final result = await db.rawQuery('''
+    int fornecedorId,
+  ) async {
+    final result = await db.rawQuery(
+      '''
       SELECT i.*, fi.preco
       FROM insumo i
       INNER JOIN fornecedor_insumo fi ON i.id = fi.insumo_id
       WHERE fi.fornecedor_id = ?
-    ''', [fornecedorId]);
+    ''',
+      [fornecedorId],
+    );
     return result;
   }
 }

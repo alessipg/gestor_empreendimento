@@ -36,13 +36,25 @@ class _FornecedorEditarState extends State<FornecedorEditar> {
     super.initState();
     nomeController = TextEditingController(text: widget.fornecedor.nome);
     cnpjController = TextEditingController(text: widget.fornecedor.cnpj ?? '');
-    telefoneController = TextEditingController(text: widget.fornecedor.telefone ?? '');
-    emailController = TextEditingController(text: widget.fornecedor.email ?? '');
+    telefoneController = TextEditingController(
+      text: widget.fornecedor.telefone ?? '',
+    );
+    emailController = TextEditingController(
+      text: widget.fornecedor.email ?? '',
+    );
     cepController = TextEditingController(text: widget.fornecedor.cep ?? '');
-    enderecoController = TextEditingController(text: widget.fornecedor.endereco ?? '');
-    bairroController = TextEditingController(text: widget.fornecedor.bairro ?? '');
-    cidadeController = TextEditingController(text: widget.fornecedor.cidade ?? '');
-    estadoController = TextEditingController(text: widget.fornecedor.estado ?? '');
+    enderecoController = TextEditingController(
+      text: widget.fornecedor.endereco ?? '',
+    );
+    bairroController = TextEditingController(
+      text: widget.fornecedor.bairro ?? '',
+    );
+    cidadeController = TextEditingController(
+      text: widget.fornecedor.cidade ?? '',
+    );
+    estadoController = TextEditingController(
+      text: widget.fornecedor.estado ?? '',
+    );
   }
 
   @override
@@ -62,9 +74,9 @@ class _FornecedorEditarState extends State<FornecedorEditar> {
   Future<void> _buscarCep() async {
     final cep = cepController.text;
     if (cep.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Digite um CEP')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Digite um CEP')));
       return;
     }
 
@@ -85,22 +97,22 @@ class _FornecedorEditarState extends State<FornecedorEditar> {
         cidadeController.text = resultado['localidade'] ?? '';
         estadoController.text = resultado['uf'] ?? '';
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CEP encontrado!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('CEP encontrado!')));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CEP não encontrado')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('CEP não encontrado')));
     }
   }
 
   Future<void> _buscarCnpj() async {
     final cnpj = cnpjController.text;
     if (cnpj.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Digite um CNPJ')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Digite um CNPJ')));
       return;
     }
 
@@ -120,17 +132,21 @@ class _FornecedorEditarState extends State<FornecedorEditar> {
         telefoneController.text = resultado['telefone'] ?? '';
         emailController.text = resultado['email'] ?? '';
         cepController.text = resultado['cep'] ?? '';
-        enderecoController.text = '${resultado['logradouro'] ?? ''} ${resultado['numero'] ?? ''}'.trim();
+        enderecoController.text =
+            '${resultado['logradouro'] ?? ''} ${resultado['numero'] ?? ''}'
+                .trim();
         bairroController.text = resultado['bairro'] ?? '';
         cidadeController.text = resultado['municipio'] ?? '';
         estadoController.text = resultado['uf'] ?? '';
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CNPJ encontrado!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('CNPJ encontrado!')));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CNPJ não encontrado ou serviço indisponível')),
+        const SnackBar(
+          content: Text('CNPJ não encontrado ou serviço indisponível'),
+        ),
       );
     }
   }
@@ -139,26 +155,23 @@ class _FornecedorEditarState extends State<FornecedorEditar> {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       context.read<FornecedorController>().atualizar(
-            Fornecedor(
-              id: widget.fornecedor.id,
-              nome: nomeController.text,
-              cnpj: cnpjController.text.isEmpty ? null : cnpjController.text,
-              telefone: telefoneController.text.isEmpty
-                  ? null
-                  : telefoneController.text,
-              email: emailController.text.isEmpty ? null : emailController.text,
-              cep: cepController.text.isEmpty ? null : cepController.text,
-              endereco: enderecoController.text.isEmpty
-                  ? null
-                  : enderecoController.text,
-              bairro:
-                  bairroController.text.isEmpty ? null : bairroController.text,
-              cidade:
-                  cidadeController.text.isEmpty ? null : cidadeController.text,
-              estado:
-                  estadoController.text.isEmpty ? null : estadoController.text,
-            ),
-          );
+        Fornecedor(
+          id: widget.fornecedor.id,
+          nome: nomeController.text,
+          cnpj: cnpjController.text.isEmpty ? null : cnpjController.text,
+          telefone: telefoneController.text.isEmpty
+              ? null
+              : telefoneController.text,
+          email: emailController.text.isEmpty ? null : emailController.text,
+          cep: cepController.text.isEmpty ? null : cepController.text,
+          endereco: enderecoController.text.isEmpty
+              ? null
+              : enderecoController.text,
+          bairro: bairroController.text.isEmpty ? null : bairroController.text,
+          cidade: cidadeController.text.isEmpty ? null : cidadeController.text,
+          estado: estadoController.text.isEmpty ? null : estadoController.text,
+        ),
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Fornecedor atualizado com sucesso!')),
       );
@@ -269,9 +282,7 @@ class _FornecedorEditarState extends State<FornecedorEditar> {
               ),
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
-                if (value != null &&
-                    value.isNotEmpty &&
-                    !value.contains('@')) {
+                if (value != null && value.isNotEmpty && !value.contains('@')) {
                   return 'Email inválido';
                 }
                 return null;

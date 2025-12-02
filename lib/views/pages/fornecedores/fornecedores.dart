@@ -100,9 +100,7 @@ class _FornecedoresState extends State<Fornecedores> {
                                     height: 24,
                                   ),
                                 ),
-                                DeleteFornecedorBtn(
-                                  fornecedor: fornecedor,
-                                ),
+                                DeleteFornecedorBtn(fornecedor: fornecedor),
                               ],
                             ),
                           ),
