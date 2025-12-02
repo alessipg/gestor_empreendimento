@@ -245,7 +245,7 @@ dart analyze
 - [x] Scanner QRCode (carrinho de compras) - **Implementado**
 - [ ] Estoque: entrada/saída integrada às receitas
 - [ ] Relatórios de custo/margem
-- [ ] PDV completo
+- [ ] PDV completo (gateway de pagamentos)
 
 
 ### Licença
