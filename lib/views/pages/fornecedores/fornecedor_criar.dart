@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:receitacerta/config/constants.dart';
 import 'package:receitacerta/controllers/fornecedor_controller.dart';
 import 'package:receitacerta/services/viacep_service.dart';
+import 'package:receitacerta/services/receitaws_service.dart';
 
 class FornecedorCriar extends StatefulWidget {
   const FornecedorCriar({super.key});
@@ -92,7 +93,7 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
       _isLoadingCnpj = true;
     });
 
-    final resultado = await ViaCepService.buscarCnpj(cnpj);
+    final resultado = await ReceitawsService.buscarCnpj(cnpj);
 
     setState(() {
       _isLoadingCnpj = false;
