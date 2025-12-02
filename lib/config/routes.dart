@@ -4,6 +4,7 @@ import 'package:receitacerta/models/receita.dart';
 import 'package:receitacerta/views/pages/mercadorias/mercadoria_criar.dart';
 import 'package:receitacerta/views/pages/mercadorias/mercadoria_editar.dart';
 import 'package:receitacerta/views/pages/pdv/carrinho.dart';
+import 'package:receitacerta/views/pages/pdv/resumo_compra.dart';
 import 'package:receitacerta/views/pages/receitas/receita_editar.dart';
 import 'package:receitacerta/views/widgets/custom_scaffold.dart';
 import 'package:go_router/go_router.dart';
@@ -76,9 +77,11 @@ final routes = GoRouter(
     ),
     GoRoute(
       path: '/carrinho',
-      builder: (context, state) => CustomScaffold(
-        child: Carrinho(),
-      ),
+      builder: (context, state) => CustomScaffold(child: Carrinho()),
+    ),
+    GoRoute(
+      path: '/pdv/resumo',
+      builder: (context, state) => const ResumoCompra(),
     ),
   ],
 );
