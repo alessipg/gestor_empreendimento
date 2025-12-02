@@ -17,6 +17,11 @@ import 'package:receitacerta/views/pages/insumos/insumo_criar.dart';
 import 'package:receitacerta/views/pages/insumos/insumo_editar.dart';
 import 'package:receitacerta/models/insumo.dart';
 import 'package:receitacerta/views/pages/receitas/receita_criar.dart';
+import 'package:receitacerta/views/pages/fornecedores/fornecedores.dart';
+import 'package:receitacerta/views/pages/fornecedores/fornecedor_criar.dart';
+import 'package:receitacerta/views/pages/fornecedores/fornecedor_editar.dart';
+import 'package:receitacerta/views/pages/insumos/insumo_fornecedores.dart';
+import 'package:receitacerta/models/fornecedor.dart';
 
 final routes = GoRouter(
   initialLocation: '/',
@@ -82,6 +87,27 @@ final routes = GoRouter(
     GoRoute(
       path: '/pdv/resumo',
       builder: (context, state) => const ResumoCompra(),
+    ),
+    GoRoute(
+      path: '/fornecedores',
+      builder: (context, state) => const CustomScaffold(child: Fornecedores()),
+    ),
+    GoRoute(
+      path: '/fornecedores/add',
+      builder: (context, state) =>
+          const CustomScaffold(child: FornecedorCriar()),
+    ),
+    GoRoute(
+      path: '/fornecedores/edit',
+      builder: (context, state) => CustomScaffold(
+        child: FornecedorEditar(fornecedor: state.extra as Fornecedor),
+      ),
+    ),
+    GoRoute(
+      path: '/insumos/:id/fornecedores',
+      builder: (context, state) => CustomScaffold(
+        child: InsumoFornecedores(insumo: state.extra as Insumo),
+      ),
     ),
   ],
 );

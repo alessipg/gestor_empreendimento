@@ -5,6 +5,8 @@ import 'package:receitacerta/controllers/insumo_controller.dart';
 import 'package:receitacerta/repositories/insumo_repository.dart';
 import 'package:receitacerta/controllers/receita_controller.dart';
 import 'package:receitacerta/repositories/receita_repository.dart';
+import 'package:receitacerta/controllers/fornecedor_controller.dart';
+import 'package:receitacerta/repositories/fornecedor_repository.dart';
 import 'package:provider/provider.dart';
 import 'config/routes.dart';
 import 'controllers/mercadoria_controller.dart';
@@ -31,11 +33,13 @@ void main() async {
   final insumoRepository = InsumoRepository();
   final mercadoriaRepository = MercadoriaRepository();
   final receitaRepository = ReceitaRepository();
+  final fornecedorRepository = FornecedorRepository();
 
   await Future.wait([
     insumoRepository.waitForInitialization(),
     mercadoriaRepository.waitForInitialization(),
     receitaRepository.waitForInitialization(),
+    fornecedorRepository.waitForInitialization(),
   ]);
 
   runApp(
@@ -44,6 +48,9 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CartController()),
         ChangeNotifierProvider(
           create: (context) => InsumoController(insumoRepository),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FornecedorController(fornecedorRepository),
         ),
         ChangeNotifierProvider(
           create: (context) => MercadoriaController(mercadoriaRepository),

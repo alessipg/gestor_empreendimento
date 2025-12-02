@@ -88,6 +88,18 @@ class CustomScaffold extends StatelessWidget {
               ),
               onTap: () => GoRouter.of(context).push('/insumos'),
             ),
+            ListTile(
+              leading: const Icon(Icons.local_shipping, size: 24),
+              title: const Text(
+                "Fornecedores",
+                style: TextStyle(
+                  fontFamily: Font.annieUseYourTelescope,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              onTap: () => GoRouter.of(context).push('/fornecedores'),
+            ),
           ],
         ),
       ),
