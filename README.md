@@ -67,18 +67,20 @@ FIREBASE_MEASUREMENT_ID=seu_measurement_id_aqui
 
 O projeto consome duas APIs públicas brasileiras para facilitar o cadastro de fornecedores:
 
-#### ViaCEP API
+#### ViaCEP API (`viacep_service.dart`)
 - **Endpoint**: `https://viacep.com.br/ws/{cep}/json/`
 - **Uso**: Busca automática de endereço através do CEP
 - **Dados retornados**: Logradouro, bairro, cidade e estado
 - **Gratuito**: Não requer autenticação
 
-#### ReceitaWS API (CNPJ)
+#### ReceitaWS API (`receitaws_service.dart`)
 - **Endpoint**: `https://www.receitaws.com.br/v1/cnpj/{cnpj}`
 - **Uso**: Busca automática de dados da empresa através do CNPJ
 - **Dados retornados**: Nome, telefone, email, endereço completo
 - **Gratuito**: Limitado a 3 requisições por minuto
 - **Nota**: Em produção, considere APIs pagas para maior disponibilidade
+
+**Separação de responsabilidades**: Cada API possui seu próprio service dedicado seguindo o princípio de responsabilidade única.
 
 ## Desenvolvimento
 
@@ -148,7 +150,7 @@ flutter test
 - `lib/models`: entidades de domínio (`Insumo`, `Receita`, `Mercadoria`, `Produto`, `Fornecedor`, `FornecedorInsumo`, `CartItem`)
 - `lib/repositories`: repositórios com persistência em SQLite
 - `lib/database`: configuração do banco de dados local (SQLite v3)
-- `lib/services`: serviços externos (ViaCEP, ReceitaWS)
+- `lib/services`: serviços externos (ViaCEP - busca CEP, ReceitaWS - busca CNPJ)
 - `lib/security`: serviços de autenticação (Google Sign-In)
 - `lib/views/pages`: telas (insumos, receitas, fornecedores, carrinho, etc.)
 - `lib/views/widgets`: componentes reutilizáveis
