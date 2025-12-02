@@ -63,6 +63,23 @@ FIREBASE_MEASUREMENT_ID=seu_measurement_id_aqui
    - **Authentication > Settings**: limitar domínios autorizados
    - **Google Cloud Console > Credentials**: restringir API Keys por package name (Android) ou referrer (Web)
 
+### APIs Externas Integradas
+
+O projeto consome duas APIs públicas brasileiras para facilitar o cadastro de fornecedores:
+
+#### ViaCEP API
+- **Endpoint**: `https://viacep.com.br/ws/{cep}/json/`
+- **Uso**: Busca automática de endereço através do CEP
+- **Dados retornados**: Logradouro, bairro, cidade e estado
+- **Gratuito**: Não requer autenticação
+
+#### ReceitaWS API (CNPJ)
+- **Endpoint**: `https://www.receitaws.com.br/v1/cnpj/{cnpj}`
+- **Uso**: Busca automática de dados da empresa através do CNPJ
+- **Dados retornados**: Nome, telefone, email, endereço completo
+- **Gratuito**: Limitado a 3 requisições por minuto
+- **Nota**: Em produção, considere APIs pagas para maior disponibilidade
+
 ## Desenvolvimento
 
 ### Versionamento
@@ -81,11 +98,14 @@ Os seguintes packages foram utilizados no projeto:
 - `go_router`: Organização de rotas do aplicativo.
 - `provider`: Injeções de dependência e controle de estado.
 - `diacritic`: Remoção de acentos e caracteres especiais para buscas por nome.  
-- `intl`: Formatação com base na localização.
+- `intl`: Formatação com base na localização e datas.
 - `flutter_launcher_icons`: Manipulação de ícones.
 - `sqflite`: Persistência local (SQLite).
 - `firebase_core` e `firebase_auth`: Autenticação via Google.
 - `google_sign_in`: Integração com login do Google.
+- `http`: Consumo de APIs externas (ViaCEP e ReceitaWS).
+- `mobile_scanner`: Leitura de QR Code para carrinho de compras.
+- `flutter_dotenv`: Gerenciamento de variáveis de ambiente.
   
 #### Arquitetura
 A arquitetura escolhida para a estrutura do projeto foi a MVC.
@@ -124,12 +144,14 @@ flutter test
 
 ### Estrutura do projeto (resumo)
 - `lib/config`: constantes e enums (ex.: `Medida`)
-- `lib/controllers`: camada de controle (Provider) — `InsumoController`, `ReceitaController`, `MercadoriaController`
-- `lib/models`: entidades de domínio (`Insumo`, `Receita`, `Mercadoria`, `Produto`)
+- `lib/controllers`: camada de controle (Provider) — `InsumoController`, `ReceitaController`, `MercadoriaController`, `FornecedorController`, `CartController`
+- `lib/models`: entidades de domínio (`Insumo`, `Receita`, `Mercadoria`, `Produto`, `Fornecedor`, `FornecedorInsumo`, `CartItem`)
 - `lib/repositories`: repositórios com persistência em SQLite
-- `lib/database`: configuração do banco de dados local (SQLite)
+- `lib/database`: configuração do banco de dados local (SQLite v3)
+- `lib/services`: serviços externos (ViaCEP, ReceitaWS)
 - `lib/security`: serviços de autenticação (Google Sign-In)
-- `lib/views/pages`: telas (insumos, receitas, etc.)
+- `lib/views/pages`: telas (insumos, receitas, fornecedores, carrinho, etc.)
+- `lib/views/widgets`: componentes reutilizáveis
 - `lib/utils`: utilitários (ex.: formatadores de entrada)
 - `assets/`: imagens e fontes
 - `test/`: testes unitários
@@ -146,6 +168,25 @@ flutter test
 - Persistência: SQLite via `sqflite`
 - Autenticação: Firebase Auth + Google Sign-In
 
+### Banco de Dados
+
+O aplicativo utiliza **SQLite** (via `sqflite`) para persistência local dos dados. O schema está na **versão 3** e inclui as seguintes tabelas:
+
+#### Tabelas principais:
+- **`insumo`**: Matérias-primas (id, nome, quantidade, custo, medida, isDiscreto)
+- **`mercadoria`**: Produtos finais (id, nome, quantidade, custo, venda, medida, isDiscreto)
+- **`receita`**: Receitas de produção (id, nome, produto_id, custoUnitario, qtdMercadoriaGerada)
+- **`receita_insumo`**: Relacionamento N:N entre receitas e insumos (id, receita_id, insumo_id, quantidadePorUnidade)
+- **`fornecedor`**: Cadastro de fornecedores (id, nome, cnpj, telefone, email, cep, endereco, bairro, cidade, estado)
+- **`fornecedor_insumo`**: Preços de fornecedores por insumo com histórico (id, fornecedor_id, insumo_id, preco, data_cadastro)
+
+#### Migrações:
+- **v1**: Tabelas base (insumo, mercadoria, receita, receita_insumo)
+- **v2**: Adição de fornecedores (fornecedor, fornecedor_insumo)
+- **v3**: Campo `data_cadastro` em `fornecedor_insumo` e remoção de constraint UNIQUE para permitir histórico de preços
+
+O sistema suporta migrações automáticas sem perda de dados existentes.
+
 ---
 ## Aplicação
 
@@ -157,19 +198,34 @@ Três entidades principais compôem esse processo:
 - Mercadoria: o produto resultante de uma receita e que será vendido para alguém.
 
 ### Funcionalidades atuais
-- Insumos
-	- Criar/editar insumos
+- **Insumos**
+	- Criar/editar/excluir insumos
 	- Formatação de valores e quantidades com `CurrencyInputFormatter` e `QuantityInputFormatter`
 	- Cálculo de custo por unidade (com suporte a vírgula/ponto e entrada RTL para quantidades)
-- Receitas
+	- Gerenciamento de fornecedores e preços por insumo
+- **Receitas**
 	- Tela de criação com:
 		- Seleção de produto final (mercadoria) e quantidade produzida
 		- Dropdown de matérias-primas (insumos) com quantidade por receita
 		- Lista das matérias-primas adicionadas com remoção
 	- Integração com `ReceitaController` para criar a receita
-- Mercadorias
-    - Criar/Editar
-    - Visualizar custos
+- **Mercadorias**
+    - Criar/Editar/Excluir
+    - Visualizar custos e margem de lucro
+- **Fornecedores**
+    - CRUD completo de fornecedores
+    - Busca automática de dados por CEP (ViaCEP API)
+    - Busca automática de dados por CNPJ (ReceitaWS API)
+    - Gerenciamento de preços por fornecedor/insumo
+    - Histórico de preços com data de cadastro
+    - Permite múltiplos registros do mesmo fornecedor para monitoramento de variação de preços
+- **Carrinho de Compras**
+    - Adicionar insumos manualmente com busca
+    - Scanner de QR Code para adicionar produtos
+    - Persistência do carrinho entre sessões
+    - Cálculo automático do total
+- **Autenticação**
+    - Login com Google (Firebase Auth)
 
 ### Convenções e qualidade
 - Commits: Conventional Commits (ex.: `feat:`, `fix:`, `refactor:`)
@@ -181,11 +237,13 @@ dart analyze
 ```
 ### Funcionalidades a acrescentar
 >Com exceção das obrigatórias, as demais dependerão do tempo disponível dos colaboradores.
-- [ ] Persistência (ex.: Hive/Sqflite)
+- [x] Persistência (Sqflite) - **Implementado**
+- [x] Autenticação com Google - **Implementado**
+- [x] Consumo de API externa (ViaCEP e ReceitaWS) - **Implementado**
+- [x] Scanner QRCode (carrinho de compras) - **Implementado**
 - [ ] Estoque: entrada/saída integrada às receitas
 - [ ] Relatórios de custo/margem
-- [ ] Autenticação com Google
-- [ ] PDV com QRCode
+- [ ] PDV completo
 
 
 ### Licença
