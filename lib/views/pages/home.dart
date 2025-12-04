@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
 
               ElevatedButton(
                 onPressed: () async {
-                  /*try {
+                  try {
                     //TODO: remover depois
                     final userCredential =
                         await GoogleSignInService.signInWithGoogle();
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Erro no login: $e')),
                     );
-                  }*/
+                  }
                   context.push('/menu');
                 },
                 style: ElevatedButton.styleFrom(
