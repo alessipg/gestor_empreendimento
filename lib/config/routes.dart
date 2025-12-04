@@ -26,13 +26,13 @@ import 'package:receitacerta/models/fornecedor.dart';
 final routes = GoRouter(
   initialLocation: '/',
   //TODO: remover comentário para reativar autenticação
-  /*redirect: (context, state) {
+  redirect: (context, state) {
     final user = FirebaseAuth.instance.currentUser;
     final loggingIn = state.fullPath == '/';
     if (user == null && !loggingIn) return '/';
     if (user != null && loggingIn) return '/menu';
     return null;
-  },*/
+  },
   routes: [
     GoRoute(path: '/', builder: (context, state) => const Home()),
     GoRoute(

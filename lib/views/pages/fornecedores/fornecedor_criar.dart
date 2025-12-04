@@ -100,9 +100,37 @@ class _FornecedorCriarState extends State<FornecedorCriar> {
     });
 
     if (resultado != null) {
+      final String telefoneApi = resultado['telefone'] ?? '';
+      String telefonesSeparados = '';
+
+      if (telefoneApi.isNotEmpty) {
+        String remainingDigits = telefoneApi;
+        List<String> foundTelefones = [];
+
+        while (remainingDigits.length >= 10) {
+          String nextPhone = '';
+
+          if (remainingDigits.length >= 11) {
+            nextPhone = remainingDigits.substring(0, 11);
+            remainingDigits = remainingDigits.substring(11);
+          } else {
+            nextPhone = remainingDigits.substring(0, 10);
+            remainingDigits = remainingDigits.substring(10);
+          }
+
+          foundTelefones.add(nextPhone);
+        }
+
+        if (remainingDigits.isNotEmpty) {
+          foundTelefones.add(remainingDigits);
+        }
+
+        telefonesSeparados = foundTelefones.join(', ');
+      }
+
       setState(() {
         nomeController.text = resultado['nome'] ?? '';
-        telefoneController.text = resultado['telefone'] ?? '';
+        telefoneController.text = telefonesSeparados;
         emailController.text = resultado['email'] ?? '';
         cepController.text = resultado['cep'] ?? '';
         enderecoController.text =
